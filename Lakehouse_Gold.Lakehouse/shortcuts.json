@@ -1,0 +1,14 @@
+[
+  {
+    "name": "WideWorldImportersDW",
+    "path": "/Files",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "itemId": "550afeaa-8558-4439-beb3-a3ad9c9984d9",
+        "path": "Files/WideWorldImportersDW",
+        "workspaceId": "3c287734-4f67-40e9-8c8b-bcc3d93ff862"
+      }
+    }
+  }
+]
