@@ -1,0 +1,25 @@
+relationship f469f770-8780-7841-d6af-bcf195a85d94
+	relyOnReferentialIntegrity
+	fromColumn: Sales.InvoiceDateKey
+	toColumn: Date.Date
+
+relationship c6cdaeac-0b8e-38a2-a1b9-fe86f17e4b3f
+	relyOnReferentialIntegrity
+	fromColumn: Sales.CityKey
+	toColumn: City.CityKey
+
+relationship 5231f696-3a2c-d19f-7e55-471129b381f8
+	relyOnReferentialIntegrity
+	fromColumn: Sales.CustomerKey
+	toColumn: Customer.CustomerKey
+
+relationship 977f39f0-0548-f472-0450-7921c0df8e50
+	relyOnReferentialIntegrity
+	fromColumn: Sales.SalespersonKey
+	toColumn: Employee.EmployeeKey
+
+relationship d9c34ecb-8b38-c5f1-9502-5badf5d9e8d5
+	relyOnReferentialIntegrity
+	fromColumn: Sales.StockItemKey
+	toColumn: 'Stock Item'.StockItemKey
+

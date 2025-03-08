@@ -1,0 +1,254 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "Copy dimension files",
+        "type": "Copy",
+        "dependsOn": [
+          {
+            "activity": "Delete Lakehouse Files",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "BinarySource",
+            "storeSettings": {
+              "type": "AzureBlobStorageReadSettings",
+              "recursive": true,
+              "wildcardFolderPath": "WideWorldImportersDW/parquet/full/dimension_*",
+              "wildcardFileName": "*.parquet"
+            },
+            "formatSettings": {
+              "type": "BinaryReadSettings"
+            },
+            "datasetSettings": {
+              "annotations": [],
+              "type": "Binary",
+              "typeProperties": {
+                "location": {
+                  "type": "AzureBlobStorageLocation",
+                  "container": "sampledata"
+                }
+              },
+              "externalReferences": {
+                "connection": "8e0d4cc6-d29c-4b50-af4b-8bb9e84d746d"
+              }
+            }
+          },
+          "sink": {
+            "type": "BinarySink",
+            "storeSettings": {
+              "type": "LakehouseWriteSettings",
+              "copyBehavior": "PreserveHierarchy"
+            },
+            "datasetSettings": {
+              "annotations": [],
+              "linkedService": {
+                "name": "Lakehouse",
+                "properties": {
+                  "annotations": [],
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "workspaceId": "3c287734-4f67-40e9-8c8b-bcc3d93ff862",
+                    "artifactId": "550afeaa-8558-4439-beb3-a3ad9c9984d9",
+                    "rootFolder": "Files"
+                  }
+                }
+              },
+              "type": "Binary",
+              "typeProperties": {
+                "location": {
+                  "type": "LakehouseLocation",
+                  "folderPath": "WideWorldImportersDW"
+                }
+              }
+            }
+          },
+          "enableStaging": false,
+          "logSettings": {
+            "enableCopyActivityLog": true,
+            "copyActivityLogSettings": {
+              "logLevel": "Info",
+              "enableReliableLogging": false
+            },
+            "logLocationSettings": {
+              "path": {
+                "value": "@pipeline().parameters.LogsFolderPath",
+                "type": "Expression"
+              },
+              "externalReferences": {
+                "connection": "94a337ef-fe94-4e5a-9355-085b0ceac1cc"
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "Copy fact files",
+        "type": "Copy",
+        "dependsOn": [
+          {
+            "activity": "Delete Lakehouse Files",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "BinarySource",
+            "storeSettings": {
+              "type": "AzureBlobStorageReadSettings",
+              "recursive": true,
+              "prefix": {
+                "value": "@concat('WideWorldImportersDW/parquet/', pipeline().parameters.FactFolderRelPath)",
+                "type": "Expression"
+              },
+              "deleteFilesAfterCompletion": false
+            },
+            "formatSettings": {
+              "type": "BinaryReadSettings"
+            },
+            "datasetSettings": {
+              "annotations": [],
+              "type": "Binary",
+              "typeProperties": {
+                "location": {
+                  "type": "AzureBlobStorageLocation",
+                  "container": "sampledata"
+                }
+              },
+              "externalReferences": {
+                "connection": "8e0d4cc6-d29c-4b50-af4b-8bb9e84d746d"
+              }
+            }
+          },
+          "sink": {
+            "type": "BinarySink",
+            "storeSettings": {
+              "type": "LakehouseWriteSettings",
+              "copyBehavior": "PreserveHierarchy"
+            },
+            "datasetSettings": {
+              "annotations": [],
+              "linkedService": {
+                "name": "Lakehouse",
+                "properties": {
+                  "annotations": [],
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "workspaceId": "3c287734-4f67-40e9-8c8b-bcc3d93ff862",
+                    "artifactId": "550afeaa-8558-4439-beb3-a3ad9c9984d9",
+                    "rootFolder": "Files"
+                  }
+                }
+              },
+              "type": "Binary",
+              "typeProperties": {
+                "location": {
+                  "type": "LakehouseLocation",
+                  "folderPath": "WideWorldImportersDW/facts"
+                }
+              }
+            }
+          },
+          "enableStaging": false,
+          "logSettings": {
+            "enableCopyActivityLog": true,
+            "copyActivityLogSettings": {
+              "logLevel": "Info",
+              "enableReliableLogging": false
+            },
+            "logLocationSettings": {
+              "path": {
+                "value": "@pipeline().parameters.LogsFolderPath",
+                "type": "Expression"
+              },
+              "externalReferences": {
+                "connection": "94a337ef-fe94-4e5a-9355-085b0ceac1cc"
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "Delete Lakehouse Files",
+        "type": "Delete",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "datasetSettings": {
+            "annotations": [],
+            "linkedService": {
+              "name": "Lakehouse",
+              "properties": {
+                "annotations": [],
+                "type": "Lakehouse",
+                "typeProperties": {
+                  "workspaceId": "3c287734-4f67-40e9-8c8b-bcc3d93ff862",
+                  "artifactId": "550afeaa-8558-4439-beb3-a3ad9c9984d9",
+                  "rootFolder": "Files"
+                }
+              }
+            },
+            "type": "Binary",
+            "typeProperties": {
+              "location": {
+                "type": "LakehouseLocation",
+                "folderPath": "WideWorldImportersDW"
+              }
+            }
+          },
+          "logStorageSettings": {
+            "path": {
+              "value": "@pipeline().parameters.LogsFolderPath",
+              "type": "Expression"
+            },
+            "externalReferences": {
+              "connection": "94a337ef-fe94-4e5a-9355-085b0ceac1cc"
+            }
+          },
+          "enableLogging": true,
+          "storeSettings": {
+            "type": "LakehouseReadSettings",
+            "recursive": true,
+            "enablePartitionDiscovery": false
+          }
+        }
+      }
+    ],
+    "parameters": {
+      "LogsFolderPath": {
+        "type": "String",
+        "defaultValue": "/logs/learn-fabric.org/fabcon-demo-prototype/DataPipeline"
+      },
+      "FactFolderRelPath": {
+        "type": "String",
+        "defaultValue": "incremental/fact_sale_1y_incremental"
+      }
+    }
+  }
+}

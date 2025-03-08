@@ -1,0 +1,31 @@
+model Model
+	culture: en-US
+	collation: Latin1_General_100_BIN2_UTF8
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	directLakeBehavior: directLakeOnly
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBIDesktopVersion = 2.142.7602.2 (Main)+ca8d54483c116a43cf1854e57f020ab7a9be1d91
+
+annotation PBI_QueryOrder = ["DatabaseQuery"]
+
+annotation __TEdtr = 1
+
+annotation PBI_ProTooling = ["WebModelingEdit","TMDLView_Desktop","RemoteModeling"]
+
+ref table 'Stock Item'
+ref table City
+ref table Employee
+ref table Sales
+ref table Date
+ref table Customer
+ref table Info
+
+ref cultureInfo en-US
+

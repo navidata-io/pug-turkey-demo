@@ -1,0 +1,56 @@
+table Info
+	lineageTag: 60dff06a-aa00-42d0-b0bc-cb754db37a89
+	sourceLineageTag: [dbo].[info]
+
+	measure Environment = LOOKUPVALUE(Info[value], Info[key], "Environment")
+		lineageTag: 9936fc38-bd6d-4e56-8b7e-18170124d4ce
+
+		changedProperty = Name
+
+	measure Version = LOOKUPVALUE(Info[value], Info[key], "Version")
+		lineageTag: 5506fbb2-3233-4da4-8a0e-e73b2326eaac
+
+		changedProperty = Name
+
+	measure Pipeline = LOOKUPVALUE(Info[value], Info[key], "Pipeline")
+		lineageTag: 8b5082b6-1730-475b-8feb-bd302a9ea77b
+
+		changedProperty = Name
+
+	column key
+		dataType: string
+		isHidden
+		sourceProviderType: varchar(8000)
+		lineageTag: 6d3d498e-ab6a-4378-83fe-90d1b13360da
+		sourceLineageTag: key
+		summarizeBy: none
+		sourceColumn: key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: string
+		isHidden
+		sourceProviderType: varchar(8000)
+		lineageTag: eef50e37-68dc-45fd-9f76-70f4f19f82cf
+		sourceLineageTag: value
+		summarizeBy: none
+		sourceColumn: value
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Info = entity
+		mode: directLake
+		source
+			entityName: info
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+
