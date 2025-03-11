@@ -20,8 +20,11 @@ table Date
 		sourceLineageTag: FiscalMonth
 		summarizeBy: none
 		sourceColumn: FiscalMonth
+		sortByColumn: FiscalMonthNumber
 
 		changedProperty = Name
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 
@@ -60,6 +63,9 @@ table Date
 		sourceLineageTag: Month
 		summarizeBy: none
 		sourceColumn: Month
+		sortByColumn: CalendarMonthNumber
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 
@@ -70,8 +76,11 @@ table Date
 		sourceLineageTag: ShortMonth
 		summarizeBy: none
 		sourceColumn: ShortMonth
+		sortByColumn: CalendarMonthNumber
 
 		changedProperty = Name
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 
@@ -82,8 +91,11 @@ table Date
 		sourceLineageTag: CalendarMonth
 		summarizeBy: none
 		sourceColumn: CalendarMonth
+		sortByColumn: CalendarMonthNumber
 
 		changedProperty = Name
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 
