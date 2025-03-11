@@ -1,43 +1,35 @@
 table City
-	lineageTag: 14a26510-0da6-4c6d-8451-dc96073ff95c
-	sourceLineageTag: [dbo].[dimension_city]
+	lineageTag: d0fa4bd9-3b6c-44c2-b643-b21c1b6aaadd
+	sourceLineageTag: [dbo].[City]
 
 	column CityKey
 		dataType: int64
 		isHidden
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 99998d3d-7cd9-494e-866f-01c04207df4e
+		lineageTag: ef8279ff-ad30-4c1e-b306-8c7e1ca43d72
 		sourceLineageTag: CityKey
 		summarizeBy: none
 		sourceColumn: CityKey
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 	column City
 		dataType: string
 		sourceProviderType: varchar(8000)
-		lineageTag: 28d9d82e-bf87-4ec2-b677-7c516e69e41d
+		lineageTag: fb8a5723-f22c-4197-afa5-99d49631b14c
 		sourceLineageTag: City
 		summarizeBy: none
 		sourceColumn: City
 
 		annotation SummarizationSetBy = Automatic
 
-	column StateProvince
-		dataType: string
-		sourceProviderType: varchar(8000)
-		lineageTag: e924b3e2-168f-41ab-86ac-5bcbcb1e5a9b
-		sourceLineageTag: StateProvince
-		summarizeBy: none
-		sourceColumn: StateProvince
-
-		annotation SummarizationSetBy = Automatic
-
 	column Country
 		dataType: string
 		sourceProviderType: varchar(8000)
-		lineageTag: 0e27c782-f85f-41cb-b3ef-b8c7531a168c
+		lineageTag: 52fc54cd-83ec-4c16-b58f-a16d44ce6ba0
 		sourceLineageTag: Country
 		summarizeBy: none
 		sourceColumn: Country
@@ -47,27 +39,41 @@ table City
 	column Continent
 		dataType: string
 		sourceProviderType: varchar(8000)
-		lineageTag: d7c05c47-7c30-4bd1-8606-2cfd30fa9fc5
+		lineageTag: a091fb77-5bf0-42c6-a5c8-2446ca705f23
 		sourceLineageTag: Continent
 		summarizeBy: none
 		sourceColumn: Continent
 
 		annotation SummarizationSetBy = Automatic
 
-	column SalesTerritory
+	column 'State Province'
 		dataType: string
 		sourceProviderType: varchar(8000)
-		lineageTag: 863c97d9-a139-4e5e-b6a4-b6a9d5fd46df
+		lineageTag: 67b9a8d0-d7d9-4751-9d35-72d70b0a08b9
+		sourceLineageTag: StateProvince
+		summarizeBy: none
+		sourceColumn: StateProvince
+
+		changedProperty = Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales Territory'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 96703f07-beb5-48b3-b3e5-c94cd6b04532
 		sourceLineageTag: SalesTerritory
 		summarizeBy: none
 		sourceColumn: SalesTerritory
+
+		changedProperty = Name
 
 		annotation SummarizationSetBy = Automatic
 
 	column Region
 		dataType: string
 		sourceProviderType: varchar(8000)
-		lineageTag: 90a46e9a-b3dc-4752-b581-3a1d7a77b354
+		lineageTag: 8d1afa58-75c5-40a2-9b59-23bc85dbc44a
 		sourceLineageTag: Region
 		summarizeBy: none
 		sourceColumn: Region
@@ -77,87 +83,19 @@ table City
 	column Subregion
 		dataType: string
 		sourceProviderType: varchar(8000)
-		lineageTag: 303718fd-6057-4838-bcbe-edf9de6c3e34
+		lineageTag: 12d85c7a-c435-4921-983c-f046aabb0612
 		sourceLineageTag: Subregion
 		summarizeBy: none
 		sourceColumn: Subregion
 
 		annotation SummarizationSetBy = Automatic
 
-	column Location
-		dataType: string
-		isHidden
-		sourceProviderType: varchar(8000)
-		lineageTag: 4faf10fd-d235-4ee9-b792-dea2e0ee320c
-		sourceLineageTag: Location
-		summarizeBy: none
-		sourceColumn: Location
-
-		annotation SummarizationSetBy = Automatic
-
-	column WWICityID
-		dataType: int64
-		formatString: 0
-		sourceProviderType: int
-		lineageTag: 97d36995-695c-49c9-b553-bda72b8c6910
-		sourceLineageTag: WWICityID
-		summarizeBy: none
-		sourceColumn: WWICityID
-
-		annotation SummarizationSetBy = Automatic
-
-	column LatestRecordedPopulation
-		dataType: int64
-		formatString: 0
-		sourceProviderType: bigint
-		lineageTag: 950ef74f-2f6c-4792-bfbb-bc5a921d7494
-		sourceLineageTag: LatestRecordedPopulation
-		summarizeBy: none
-		sourceColumn: LatestRecordedPopulation
-
-		annotation SummarizationSetBy = Automatic
-
-	column ValidFrom
-		dataType: dateTime
-		formatString: General Date
-		sourceProviderType: datetime2
-		lineageTag: 4de263ed-f850-4586-9e20-8166dd4cb2c1
-		sourceLineageTag: ValidFrom
-		summarizeBy: none
-		sourceColumn: ValidFrom
-
-		annotation SummarizationSetBy = Automatic
-
-	column ValidTo
-		dataType: dateTime
-		formatString: General Date
-		sourceProviderType: datetime2
-		lineageTag: ad94eceb-ab54-4893-8954-afee286d3e93
-		sourceLineageTag: ValidTo
-		summarizeBy: none
-		sourceColumn: ValidTo
-
-		annotation SummarizationSetBy = Automatic
-
-	column LineageKey
-		dataType: int64
-		formatString: 0
-		sourceProviderType: int
-		lineageTag: 5bce8a63-cf24-4b11-b2e7-fa97991180a5
-		sourceLineageTag: LineageKey
-		summarizeBy: none
-		sourceColumn: LineageKey
-
-		annotation SummarizationSetBy = Automatic
-
 	partition City = entity
 		mode: directLake
 		source
-			entityName: dimension_city
+			entityName: City
 			schemaName: dbo
 			expressionSource: DatabaseQuery
-
-	changedProperty = Name
 
 	annotation PBI_ResultType = Table
 

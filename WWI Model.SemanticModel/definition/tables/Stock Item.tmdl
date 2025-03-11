@@ -1,64 +1,47 @@
 table 'Stock Item'
-	lineageTag: 27dced5a-b442-4952-a199-03fb6b86a10b
-	sourceLineageTag: [dbo].[dimension_stock_item]
+	lineageTag: 0d65a17c-d5e5-495c-90cb-5335bd86a0e7
+	sourceLineageTag: [dbo].[Stock_Item]
 
 	column StockItemKey
 		dataType: int64
 		isHidden
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 27516535-2097-4f3c-b5f3-601b488e6719
+		lineageTag: 6e8657f2-b089-4451-b5f9-1d9645ff9833
 		sourceLineageTag: StockItemKey
 		summarizeBy: none
 		sourceColumn: StockItemKey
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
-	column StockItem
+	column 'Stock Item'
 		dataType: string
 		sourceProviderType: varchar(8000)
-		lineageTag: d7e3e462-3e81-406d-a3ea-dd116baf17ab
+		lineageTag: 9cca6819-c11a-4e18-a920-11012c072913
 		sourceLineageTag: StockItem
-		isDefaultLabel
 		summarizeBy: none
 		sourceColumn: StockItem
+
+		changedProperty = Name
 
 		annotation SummarizationSetBy = Automatic
 
 	column Color
 		dataType: string
 		sourceProviderType: varchar(8000)
-		lineageTag: 2fe6df1d-bbb1-4b36-9a83-ce1d4873b7f7
+		lineageTag: 310d07b1-e199-47ea-9d7c-e74bf6d5b399
 		sourceLineageTag: Color
 		summarizeBy: none
 		sourceColumn: Color
 
 		annotation SummarizationSetBy = Automatic
 
-	column SellingPackage
-		dataType: string
-		sourceProviderType: varchar(8000)
-		lineageTag: c9cf95ef-7e34-4946-8752-7127d892129a
-		sourceLineageTag: SellingPackage
-		summarizeBy: none
-		sourceColumn: SellingPackage
-
-		annotation SummarizationSetBy = Automatic
-
-	column BuyingPackage
-		dataType: string
-		sourceProviderType: varchar(8000)
-		lineageTag: 1f6b3b23-e0e9-414d-b822-734a0d8cf988
-		sourceLineageTag: BuyingPackage
-		summarizeBy: none
-		sourceColumn: BuyingPackage
-
-		annotation SummarizationSetBy = Automatic
-
 	column Brand
 		dataType: string
 		sourceProviderType: varchar(8000)
-		lineageTag: e00a3063-c789-4704-a135-795cc3d2ff7b
+		lineageTag: f54b88c9-74be-4c56-b517-d9d3cc1a528d
 		sourceLineageTag: Brand
 		summarizeBy: none
 		sourceColumn: Brand
@@ -68,153 +51,30 @@ table 'Stock Item'
 	column Size
 		dataType: string
 		sourceProviderType: varchar(8000)
-		lineageTag: 2f529a57-ae2b-4adc-8a7e-a9356d05a0e8
+		lineageTag: 5c16a180-a460-420c-9f97-305d9e437a03
 		sourceLineageTag: Size
 		summarizeBy: none
 		sourceColumn: Size
 
 		annotation SummarizationSetBy = Automatic
 
-	/// Lead time in days
-	column LeadTimeDays
-		dataType: int64
-		formatString: 0
-		sourceProviderType: int
-		lineageTag: 955b0880-1712-4f44-8ae4-67fdfdfb430b
-		sourceLineageTag: LeadTimeDays
-		summarizeBy: none
-		sourceColumn: LeadTimeDays
-
-		annotation SummarizationSetBy = Automatic
-
-	column QuantityPerOuter
-		dataType: int64
-		formatString: 0
-		sourceProviderType: int
-		lineageTag: eb988ece-3144-4f10-85f2-3562c4abb913
-		sourceLineageTag: QuantityPerOuter
-		summarizeBy: none
-		sourceColumn: QuantityPerOuter
-
-		annotation SummarizationSetBy = Automatic
-
-	column IsChillerStock
+	column 'Is Chiller Stock'
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
 		sourceProviderType: bit
-		lineageTag: 93463eb1-d41c-4517-8c2c-ebbeb4d93159
+		lineageTag: f7e67e5e-de9b-4a47-8e10-c2a297245371
 		sourceLineageTag: IsChillerStock
 		summarizeBy: none
 		sourceColumn: IsChillerStock
 
-		annotation SummarizationSetBy = Automatic
-
-	column Barcode
-		dataType: string
-		sourceProviderType: varchar(8000)
-		lineageTag: fc13fdf6-48c3-4102-9cb0-f37107c23cc0
-		sourceLineageTag: Barcode
-		summarizeBy: none
-		sourceColumn: Barcode
-
-		annotation SummarizationSetBy = Automatic
-
-	column TaxRate
-		dataType: double
-		sourceProviderType: decimal(18, 3)
-		lineageTag: 1264703e-53b8-4f40-b49e-b3dd3b58dc76
-		sourceLineageTag: TaxRate
-		summarizeBy: none
-		sourceColumn: TaxRate
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column UnitPrice
-		dataType: double
-		sourceProviderType: decimal(18, 2)
-		lineageTag: 6e9850ca-7d9a-4ed7-9418-8f36b4cf47a3
-		sourceLineageTag: UnitPrice
-		summarizeBy: none
-		sourceColumn: UnitPrice
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column RecommendedRetailPrice
-		dataType: double
-		sourceProviderType: decimal(18, 2)
-		lineageTag: 988d795f-cd2d-48cd-bc06-e4e0365f626f
-		sourceLineageTag: RecommendedRetailPrice
-		summarizeBy: none
-		sourceColumn: RecommendedRetailPrice
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column TypicalWeightPerUnit
-		dataType: double
-		sourceProviderType: decimal(18, 3)
-		lineageTag: 345c1443-247b-4858-bd21-530d8ce46792
-		sourceLineageTag: TypicalWeightPerUnit
-		summarizeBy: none
-		sourceColumn: TypicalWeightPerUnit
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column WWIStockItemID
-		dataType: int64
-		formatString: 0
-		sourceProviderType: int
-		lineageTag: 708020a0-22c4-4258-ae59-ae07fb554174
-		sourceLineageTag: WWIStockItemID
-		summarizeBy: none
-		sourceColumn: WWIStockItemID
-
-		annotation SummarizationSetBy = Automatic
-
-	column ValidFrom
-		dataType: dateTime
-		formatString: General Date
-		sourceProviderType: datetime2
-		lineageTag: 786c8b8d-749a-4992-9558-551a413b39fe
-		sourceLineageTag: ValidFrom
-		summarizeBy: none
-		sourceColumn: ValidFrom
-
-		annotation SummarizationSetBy = Automatic
-
-	column ValidTo
-		dataType: dateTime
-		formatString: General Date
-		sourceProviderType: datetime2
-		lineageTag: c6bfeaa9-bf63-453a-93ca-4bc36f7c8945
-		sourceLineageTag: ValidTo
-		summarizeBy: none
-		sourceColumn: ValidTo
-
-		annotation SummarizationSetBy = Automatic
-
-	column LineageKey
-		dataType: int64
-		formatString: 0
-		sourceProviderType: int
-		lineageTag: 05706b09-a806-414c-9595-aca564bb5cd9
-		sourceLineageTag: LineageKey
-		summarizeBy: none
-		sourceColumn: LineageKey
+		changedProperty = Name
 
 		annotation SummarizationSetBy = Automatic
 
 	partition 'Stock Item' = entity
 		mode: directLake
 		source
-			entityName: dimension_stock_item
+			entityName: Stock_Item
 			schemaName: dbo
 			expressionSource: DatabaseQuery
 

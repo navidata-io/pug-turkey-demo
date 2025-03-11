@@ -1,131 +1,79 @@
 table Customer
-	lineageTag: f3885f92-9eef-4294-8a70-ca1e0de4ca0f
-	sourceLineageTag: [dbo].[dimension_customer]
+	lineageTag: 27b84599-18e7-430c-85f3-bd9ff1920637
+	sourceLineageTag: [dbo].[Customer]
+
+	measure 'No of Customers with Sales' = CALCULATE(COUNTROWS(Customer), Sales)
+		formatString: 0
+		lineageTag: c1223b9e-7ebc-4f1d-ba2f-cb229241003e
+
+		changedProperty = Name
 
 	column CustomerKey
 		dataType: int64
 		isHidden
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: a565e1ba-3929-45e9-8a7c-b565b7cccbf7
+		lineageTag: 13050f25-af72-41ee-a481-802ca30d8489
 		sourceLineageTag: CustomerKey
 		summarizeBy: none
 		sourceColumn: CustomerKey
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
-	column Customer
+	column 'Customer Name'
 		dataType: string
 		sourceProviderType: varchar(8000)
-		lineageTag: 585684c1-e4b8-4ac1-aead-5b85719364e5
+		lineageTag: e21dea66-4760-4959-b6ac-662f9b4833bb
 		sourceLineageTag: Customer
 		summarizeBy: none
 		sourceColumn: Customer
+
+		changedProperty = Name
 
 		annotation SummarizationSetBy = Automatic
 
 	column Category
 		dataType: string
 		sourceProviderType: varchar(8000)
-		lineageTag: 8de29c63-c2af-4919-b52e-e567359d8553
+		lineageTag: aaa97c25-4779-4e1a-a3d4-b1e15b8d5b45
 		sourceLineageTag: Category
 		summarizeBy: none
 		sourceColumn: Category
 
 		annotation SummarizationSetBy = Automatic
 
-	column BuyingGroup
+	column 'Buying Group'
 		dataType: string
 		sourceProviderType: varchar(8000)
-		lineageTag: 2d2d2085-862f-4313-9ec0-2d6eed69e8a1
+		lineageTag: 7d1c980f-415f-4fe9-b230-7284e90eafb3
 		sourceLineageTag: BuyingGroup
 		summarizeBy: none
 		sourceColumn: BuyingGroup
 
-		annotation SummarizationSetBy = Automatic
-
-	column PrimaryContact
-		dataType: string
-		sourceProviderType: varchar(8000)
-		lineageTag: d238d1ef-987c-48a7-9d73-fa2d7ef4ccc4
-		sourceLineageTag: PrimaryContact
-		summarizeBy: none
-		sourceColumn: PrimaryContact
+		changedProperty = Name
 
 		annotation SummarizationSetBy = Automatic
 
-	column PostalCode
+	column 'Postal Code'
 		dataType: string
 		sourceProviderType: varchar(8000)
-		lineageTag: 5e9dd2bd-f5f9-4d95-b295-bbc1540a76f9
+		lineageTag: 6da4fbfe-c602-4560-b4fb-35b435f895c2
 		sourceLineageTag: PostalCode
 		summarizeBy: none
 		sourceColumn: PostalCode
 
-		annotation SummarizationSetBy = Automatic
-
-	column WWICustomerID
-		dataType: int64
-		formatString: 0
-		sourceProviderType: int
-		lineageTag: 7bbf9424-49ab-4b02-aaf1-7d0c579e170e
-		sourceLineageTag: WWICustomerID
-		summarizeBy: none
-		sourceColumn: WWICustomerID
-
-		annotation SummarizationSetBy = Automatic
-
-	column BillToCustomer
-		dataType: string
-		sourceProviderType: varchar(8000)
-		lineageTag: faf73ef1-937d-4c22-ab79-1fe403709a9a
-		sourceLineageTag: BillToCustomer
-		summarizeBy: none
-		sourceColumn: BillToCustomer
-
-		annotation SummarizationSetBy = Automatic
-
-	column ValidFrom
-		dataType: dateTime
-		formatString: General Date
-		sourceProviderType: datetime2
-		lineageTag: 075658e0-405f-4b19-9e46-8d4367c1b175
-		sourceLineageTag: ValidFrom
-		summarizeBy: none
-		sourceColumn: ValidFrom
-
-		annotation SummarizationSetBy = Automatic
-
-	column ValidTo
-		dataType: dateTime
-		formatString: General Date
-		sourceProviderType: datetime2
-		lineageTag: c766e4c0-78c3-47af-be4e-36e835daddfd
-		sourceLineageTag: ValidTo
-		summarizeBy: none
-		sourceColumn: ValidTo
-
-		annotation SummarizationSetBy = Automatic
-
-	column LineageKey
-		dataType: int64
-		formatString: 0
-		sourceProviderType: int
-		lineageTag: 434517ef-9aac-4ec7-aeae-474352503981
-		sourceLineageTag: LineageKey
-		summarizeBy: none
-		sourceColumn: LineageKey
+		changedProperty = Name
 
 		annotation SummarizationSetBy = Automatic
 
 	partition Customer = entity
 		mode: directLake
 		source
-			entityName: dimension_customer
+			entityName: Customer
 			schemaName: dbo
 			expressionSource: DatabaseQuery
-
-	changedProperty = Name
 
 	annotation PBI_ResultType = Table
 

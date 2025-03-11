@@ -1,102 +1,62 @@
 table Employee
-	lineageTag: cec5b61c-0eb7-478e-bc9d-798545e00610
-	sourceLineageTag: [dbo].[dimension_employee]
+	lineageTag: ca149ebd-b03d-4e1e-8b7f-46d2a8591edd
+	sourceLineageTag: [dbo].[Employee]
 
 	column EmployeeKey
 		dataType: int64
 		isHidden
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: d0a949a1-0365-4fcc-b1fb-f218bcc29cb8
+		lineageTag: 3953c34d-6d4f-443a-9e66-eca9bb082680
 		sourceLineageTag: EmployeeKey
 		summarizeBy: none
 		sourceColumn: EmployeeKey
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 	column Employee
 		dataType: string
 		sourceProviderType: varchar(8000)
-		lineageTag: 390efbfd-7851-4bff-a345-a819d65fd278
+		lineageTag: 46c93806-78e5-49ce-985a-138402be3f60
 		sourceLineageTag: Employee
 		summarizeBy: none
 		sourceColumn: Employee
 
 		annotation SummarizationSetBy = Automatic
 
-	column PreferredName
-		dataType: string
-		sourceProviderType: varchar(8000)
-		lineageTag: 2a153d23-0513-4aac-b821-c4616f8aa56c
-		sourceLineageTag: PreferredName
-		summarizeBy: none
-		sourceColumn: PreferredName
-
-		annotation SummarizationSetBy = Automatic
-
-	column IsSalesperson
+	column 'Is Salesperson'
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
 		sourceProviderType: bit
-		lineageTag: ebcf5121-cc96-44fb-a025-f2f5ba08dd06
+		lineageTag: 95700ad4-b0b6-4fb0-93f4-96c82bfa6b28
 		sourceLineageTag: IsSalesperson
 		summarizeBy: none
 		sourceColumn: IsSalesperson
 
-		annotation SummarizationSetBy = Automatic
-
-	column WWIEmployeeID
-		dataType: int64
-		formatString: 0
-		sourceProviderType: int
-		lineageTag: 1cabe2c6-7c70-49c7-9b5e-d7f1c5a54022
-		sourceLineageTag: WWIEmployeeID
-		summarizeBy: none
-		sourceColumn: WWIEmployeeID
+		changedProperty = Name
 
 		annotation SummarizationSetBy = Automatic
 
-	column ValidFrom
-		dataType: dateTime
-		formatString: General Date
-		sourceProviderType: datetime2
-		lineageTag: 9f8a157e-2ee1-4ba1-8cfc-6434f8873599
-		sourceLineageTag: ValidFrom
+	column 'Preferred Name'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 7fd7e174-51d0-4a46-bb8c-120a5673c7b3
+		sourceLineageTag: PreferredName
 		summarizeBy: none
-		sourceColumn: ValidFrom
+		sourceColumn: PreferredName
 
-		annotation SummarizationSetBy = Automatic
-
-	column ValidTo
-		dataType: dateTime
-		formatString: General Date
-		sourceProviderType: datetime2
-		lineageTag: 175d734d-9a0f-484a-8fae-c4c10ed3ac59
-		sourceLineageTag: ValidTo
-		summarizeBy: none
-		sourceColumn: ValidTo
-
-		annotation SummarizationSetBy = Automatic
-
-	column LineageKey
-		dataType: int64
-		formatString: 0
-		sourceProviderType: int
-		lineageTag: d11cf1e5-9fad-42e1-905c-65b718cbbb74
-		sourceLineageTag: LineageKey
-		summarizeBy: none
-		sourceColumn: LineageKey
+		changedProperty = Name
 
 		annotation SummarizationSetBy = Automatic
 
 	partition Employee = entity
 		mode: directLake
 		source
-			entityName: dimension_employee
+			entityName: Employee
 			schemaName: dbo
 			expressionSource: DatabaseQuery
-
-	changedProperty = Name
 
 	annotation PBI_ResultType = Table
 

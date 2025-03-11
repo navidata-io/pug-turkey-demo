@@ -1,3 +1,4 @@
+/// Wide World Importers Sales Model
 model Model
 	culture: en-US
 	collation: Latin1_General_100_BIN2_UTF8
@@ -15,17 +16,15 @@ annotation PBIDesktopVersion = 2.142.7602.2 (Main)+ca8d54483c116a43cf1854e57f020
 
 annotation PBI_QueryOrder = ["DatabaseQuery"]
 
-annotation __TEdtr = 1
-
-annotation PBI_ProTooling = ["WebModelingEdit","TMDLView_Desktop","RemoteModeling"]
+annotation PBI_ProTooling = ["WebModelingEdit"]
 
 ref table 'Stock Item'
 ref table City
-ref table Employee
-ref table Sales
 ref table Date
-ref table Customer
 ref table Info
+ref table Sales
+ref table Employee
+ref table Customer
 
 ref cultureInfo en-US
 

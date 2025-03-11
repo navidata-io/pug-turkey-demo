@@ -3,7 +3,7 @@ expression DatabaseQuery =
 		    database = Sql.Database("OSGJXHLSPZRUHKHRNEODSVMRL4-GR3SQPDHJ7UUBDELXTB5SP7YMI.datawarehouse.fabric.microsoft.com", "63c5327a-3dca-43ab-a2fa-104f7a607f34")
 		in
 		    database
-	lineageTag: 4502f1a2-80c3-4ef9-9936-afd125693729
+	lineageTag: 1c1dece6-e3fe-47ef-9715-7b626fe1f154
 
 	annotation PBI_IncludeFutureArtifacts = False
 

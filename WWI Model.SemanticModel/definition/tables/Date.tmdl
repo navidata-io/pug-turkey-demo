@@ -1,53 +1,27 @@
 table Date
-	lineageTag: ae9f5ae7-5de0-403f-a2cd-523fc66216a5
-	sourceLineageTag: [dbo].[dimension_date]
-	dataCategory: Time
+	lineageTag: d301f5fc-8d6a-460d-af83-a4bc1bc60bee
+	sourceLineageTag: [dbo].[Date]
 
 	column Date
 		dataType: dateTime
-		isKey
 		formatString: General Date
 		sourceProviderType: datetime2
-		lineageTag: 7d5a373f-4fe4-4f84-86d8-240185a024a7
+		lineageTag: 65695da7-fddb-40b6-b1e2-4b3193dcaca1
 		sourceLineageTag: Date
 		summarizeBy: none
 		sourceColumn: Date
 
 		annotation SummarizationSetBy = Automatic
 
-		annotation TabularEditor_MarkAsDateKey = 1
-
-	column DayNumber
-		dataType: int64
-		isHidden
-		formatString: 0
-		sourceProviderType: int
-		lineageTag: b94682c9-fef3-4027-bb7e-e3155e78dd08
-		sourceLineageTag: DayNumber
-		summarizeBy: none
-		sourceColumn: DayNumber
-
-		annotation SummarizationSetBy = Automatic
-
-	column Month
+	column 'Fiscal Month'
 		dataType: string
 		sourceProviderType: varchar(8000)
-		lineageTag: 90ce6c61-2fdf-40f6-aad7-3c2e244d85fc
-		sourceLineageTag: Month
+		lineageTag: bb325106-0623-415d-be0c-dc9acc45d9e4
+		sourceLineageTag: FiscalMonth
 		summarizeBy: none
-		sourceColumn: Month
-		sortByColumn: CalendarMonthNumber
+		sourceColumn: FiscalMonth
 
-		annotation SummarizationSetBy = Automatic
-
-	column ShortMonth
-		dataType: string
-		sourceProviderType: varchar(8000)
-		lineageTag: 26ea0487-e870-42ee-a000-b3531e8b2929
-		sourceLineageTag: ShortMonth
-		summarizeBy: none
-		sourceColumn: ShortMonth
-		sortByColumn: CalendarMonthNumber
+		changedProperty = Name
 
 		annotation SummarizationSetBy = Automatic
 
@@ -56,41 +30,12 @@ table Date
 		isHidden
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 2cbc71a6-0906-452d-94e0-31a57aaf3fcf
+		lineageTag: 46d8cfaa-ac27-4c34-a75b-e684f76324a6
 		sourceLineageTag: CalendarMonthNumber
 		summarizeBy: none
 		sourceColumn: CalendarMonthNumber
 
-		annotation SummarizationSetBy = Automatic
-
-	column CalendarMonthLabel
-		dataType: string
-		sourceProviderType: varchar(8000)
-		lineageTag: 6c2c565f-fb54-4e3e-ac1b-3fbb4312f9a2
-		sourceLineageTag: CalendarMonthLabel
-		summarizeBy: none
-		sourceColumn: CalendarMonthLabel
-
-		annotation SummarizationSetBy = Automatic
-
-	column CalendarYear
-		dataType: int64
-		formatString: 0
-		sourceProviderType: int
-		lineageTag: 9424a896-fe2b-4f8a-aab9-b7123d5284d7
-		sourceLineageTag: CalendarYear
-		summarizeBy: none
-		sourceColumn: CalendarYear
-
-		annotation SummarizationSetBy = Automatic
-
-	column CalendarYearLabel
-		dataType: string
-		sourceProviderType: varchar(8000)
-		lineageTag: a00fcbdd-0bca-40a4-9554-85fba1341771
-		sourceLineageTag: CalendarYearLabel
-		summarizeBy: none
-		sourceColumn: CalendarYearLabel
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -99,73 +44,79 @@ table Date
 		isHidden
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 02420d3d-f0b8-478e-a5c3-7dda58513c29
+		lineageTag: 1e7aefec-be9c-4e47-824e-889a6e3f632a
 		sourceLineageTag: FiscalMonthNumber
 		summarizeBy: none
 		sourceColumn: FiscalMonthNumber
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
-	column FiscalMonthLabel
+	column Month
 		dataType: string
 		sourceProviderType: varchar(8000)
-		lineageTag: 46d212ed-4430-4ce5-922e-092f7d2f53b7
-		sourceLineageTag: FiscalMonthLabel
+		lineageTag: b4071123-ebf4-4616-b0ed-591fcad84ba6
+		sourceLineageTag: Month
 		summarizeBy: none
-		sourceColumn: FiscalMonthLabel
+		sourceColumn: Month
 
 		annotation SummarizationSetBy = Automatic
 
-	column FiscalYearLabel
+	column 'Short Month'
 		dataType: string
 		sourceProviderType: varchar(8000)
-		lineageTag: 90559d79-fea3-47dc-b440-50dcc37cb8b3
-		sourceLineageTag: FiscalYearLabel
+		lineageTag: 3443522c-fb4e-4892-93a6-bdb549abfa30
+		sourceLineageTag: ShortMonth
 		summarizeBy: none
-		sourceColumn: FiscalYearLabel
+		sourceColumn: ShortMonth
+
+		changedProperty = Name
 
 		annotation SummarizationSetBy = Automatic
 
-	column Day
+	column 'Calendar Month'
 		dataType: string
 		sourceProviderType: varchar(8000)
-		lineageTag: 92c88906-a28a-4448-bc35-963d68310410
-		sourceLineageTag: Day
+		lineageTag: a4487cee-7177-426f-a6f6-2ffdf7199f3c
+		sourceLineageTag: CalendarMonth
 		summarizeBy: none
-		sourceColumn: Day
+		sourceColumn: CalendarMonth
+
+		changedProperty = Name
 
 		annotation SummarizationSetBy = Automatic
 
-	column FiscalYear
-		dataType: int64
-		formatString: 0
-		sourceProviderType: int
-		lineageTag: b297d111-a971-4a95-97fe-7f40f1a9cfb9
+	column 'Calendar Year'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: d1170c0a-5a1a-4844-8bfd-ab396da9b5c5
+		sourceLineageTag: CalendarYear
+		summarizeBy: none
+		sourceColumn: CalendarYear
+
+		changedProperty = Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Year'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: ac62c085-ba31-420b-b6e5-127ef838674d
 		sourceLineageTag: FiscalYear
 		summarizeBy: none
 		sourceColumn: FiscalYear
 
-		annotation SummarizationSetBy = Automatic
-
-	column ISOWeekNumber
-		dataType: int64
-		formatString: 0
-		sourceProviderType: int
-		lineageTag: f42fc62e-771d-43f5-ab29-c86e7f3e489c
-		sourceLineageTag: ISOWeekNumber
-		summarizeBy: none
-		sourceColumn: ISOWeekNumber
+		changedProperty = Name
 
 		annotation SummarizationSetBy = Automatic
 
 	partition Date = entity
 		mode: directLake
 		source
-			entityName: dimension_date
+			entityName: Date
 			schemaName: dbo
 			expressionSource: DatabaseQuery
-
-	changedProperty = Name
 
 	annotation PBI_ResultType = Table
 

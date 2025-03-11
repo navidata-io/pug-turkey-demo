@@ -1,19 +1,19 @@
 table Info
-	lineageTag: 60dff06a-aa00-42d0-b0bc-cb754db37a89
-	sourceLineageTag: [dbo].[info]
+	lineageTag: 608d5537-5160-469e-92f0-468bb265e3dd
+	sourceLineageTag: [dbo].[Info]
 
 	measure Environment = LOOKUPVALUE(Info[value], Info[key], "Environment")
-		lineageTag: 9936fc38-bd6d-4e56-8b7e-18170124d4ce
+		lineageTag: cfa8dd1b-2706-4172-81fd-04c0024ebe3d
 
 		changedProperty = Name
 
 	measure Version = LOOKUPVALUE(Info[value], Info[key], "Version")
-		lineageTag: 5506fbb2-3233-4da4-8a0e-e73b2326eaac
+		lineageTag: 9559c911-ef0e-4494-b12c-dee827246d46
 
 		changedProperty = Name
 
 	measure Pipeline = LOOKUPVALUE(Info[value], Info[key], "Pipeline")
-		lineageTag: 8b5082b6-1730-475b-8feb-bd302a9ea77b
+		lineageTag: 8e688c2f-133e-46d8-a568-d4bbd0aa3ac1
 
 		changedProperty = Name
 
@@ -21,7 +21,7 @@ table Info
 		dataType: string
 		isHidden
 		sourceProviderType: varchar(8000)
-		lineageTag: 6d3d498e-ab6a-4378-83fe-90d1b13360da
+		lineageTag: 212553a7-75ec-4031-9592-c58f2980649e
 		sourceLineageTag: key
 		summarizeBy: none
 		sourceColumn: key
@@ -34,7 +34,7 @@ table Info
 		dataType: string
 		isHidden
 		sourceProviderType: varchar(8000)
-		lineageTag: eef50e37-68dc-45fd-9f76-70f4f19f82cf
+		lineageTag: 321477f9-af0b-46b2-84ed-dccd47eecd4f
 		sourceLineageTag: value
 		summarizeBy: none
 		sourceColumn: value
@@ -46,11 +46,9 @@ table Info
 	partition Info = entity
 		mode: directLake
 		source
-			entityName: info
+			entityName: Info
 			schemaName: dbo
 			expressionSource: DatabaseQuery
-
-	changedProperty = Name
 
 	annotation PBI_ResultType = Table
 
