@@ -49,6 +49,7 @@ pipeline = ""
 spark.conf.set("spark.sql.parquet.vorder.enabled", "true")
 spark.conf.set("spark.microsoft.delta.optimizeWrite.enabled", "true")
 spark.conf.set("spark.microsoft.delta.optimizeWrite.binSize", "1073741824")
+spark.conf.set("spark.databricks.delta.schema.autoMerge.enabled", "true")
 
 # METADATA ********************
 
@@ -67,14 +68,18 @@ spark.conf.set("spark.microsoft.delta.optimizeWrite.binSize", "1073741824")
 
 from pyspark.sql.functions import col, year, month, quarter
 
-table_name = 'fact_sale'
+table_name = 'Sales'
 
 df = spark.read.format("parquet").load(f"{wwiRootFolder}/{factSaleFolder}") \
+  .select("SaleKey", "CityKey", "CustomerKey", "SalespersonKey", "StockItemKey", "InvoiceDateKey",
+    "Package", "Quantity", "TotalDryItems", "TotalChillerItems",
+    "UnitPrice", "TaxAmount", "Profit"
+  ) \
   .withColumn('Year', year(col("InvoiceDateKey"))) \
   .withColumn('Quarter', quarter(col("InvoiceDateKey"))) \
   .withColumn('Month', month(col("InvoiceDateKey")))
 
-df.write.mode("overwrite").format("delta").partitionBy("Year","Quarter").save("Tables/" + table_name)
+df.write.mode("overwrite").format("delta").partitionBy("Year","Quarter").save(f"Tables/{table_name}")
 
 # METADATA ********************
 
@@ -92,10 +97,10 @@ df.write.mode("overwrite").format("delta").partitionBy("Year","Quarter").save("T
 
 from pyspark.sql.types import *
 
-def loadFullDataFromSource(table_name):
-    df = spark.read.format("parquet").load(f"{wwiRootFolder}/{table_name}")
-    df = df.select([c for c in df.columns if c != 'Photo'])
-    df.write.mode("overwrite").format("delta").save("Tables/" + table_name)
+def loadFullDataFromSource(sourceFolder, tableInfo):
+    df = spark.read.format("parquet").load(f"{wwiRootFolder}/{sourceFolder}")
+    df = df.select(tableInfo["columns"])
+    df.write.mode("overwrite").format("delta").save("Tables/" + tableInfo["name"])
 
 full_tables = [
     'dimension_city',
@@ -105,8 +110,22 @@ full_tables = [
     'dimension_stock_item'
 ]
 
-for table in full_tables:
-    loadFullDataFromSource(table)
+tables = [
+    ("dimension_city", { "name": "City", "columns": [ "CityKey", "City", "Country", "Continent", "StateProvince", "SalesTerritory", "Region", "Subregion" ]}),
+    ("dimension_customer", { "name": "Customer", "columns": ["CustomerKey","Customer","Category","BuyingGroup", "PostalCode"]}),
+    ("dimension_employee", { "name": "Employee", "columns": ["EmployeeKey","Employee","IsSalesperson","PreferredName"]}),
+    ("dimension_stock_item", { "name": "Stock_Item", "columns": ["StockItemKey","StockItem","Color","Brand","Size","IsChillerStock"]}),
+    ("dimension_date", { "name": "Date", "columns": ["Date", "CalendarMonthNumber", "FiscalMonthNumber",
+        "Month", "ShortMonth",
+        col("CalendarMonthLabel").alias("CalendarMonth"),
+        col("CalendarYearLabel").alias("CalendarYear"),
+        col("FiscalMonthLabel").alias("FiscalMonth"),
+        col("FiscalYearLabel").alias("FiscalYear"),
+    ]}),
+]
+
+for sourceFolder,tableInfo in tables:
+    loadFullDataFromSource(sourceFolder,tableInfo)
 
 # METADATA ********************
 
@@ -135,7 +154,7 @@ schema = StructType([
 df = spark.createDataFrame(data, schema)
 df.show()
 
-df.write.mode("overwrite").format("delta").save("Tables/info")
+df.write.mode("overwrite").format("delta").save("Tables/Info")
 
 # METADATA ********************
 
