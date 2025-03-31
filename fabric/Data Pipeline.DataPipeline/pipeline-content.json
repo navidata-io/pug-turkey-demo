@@ -54,13 +54,13 @@
             "datasetSettings": {
               "annotations": [],
               "linkedService": {
-                "name": "Lakehouse",
+                "name": "a6c33e48_aa64_4086_9e1a_283628d07359",
                 "properties": {
                   "annotations": [],
                   "type": "Lakehouse",
                   "typeProperties": {
-                    "workspaceId": "3c287734-4f67-40e9-8c8b-bcc3d93ff862",
-                    "artifactId": "550afeaa-8558-4439-beb3-a3ad9c9984d9",
+                    "workspaceId": "@pipeline().DataFactory",
+                    "artifactId": "@pipeline().parameters.LakehouseId",
                     "rootFolder": "Files"
                   }
                 }
@@ -149,13 +149,13 @@
             "datasetSettings": {
               "annotations": [],
               "linkedService": {
-                "name": "Lakehouse",
+                "name": "8f3a6c7f_2918_421e_a2b3_8a2451dabcff",
                 "properties": {
                   "annotations": [],
                   "type": "Lakehouse",
                   "typeProperties": {
-                    "workspaceId": "3c287734-4f67-40e9-8c8b-bcc3d93ff862",
-                    "artifactId": "550afeaa-8558-4439-beb3-a3ad9c9984d9",
+                    "workspaceId": "@pipeline().DataFactory",
+                    "artifactId": "@pipeline().parameters.LakehouseId",
                     "rootFolder": "Files"
                   }
                 }
@@ -203,13 +203,13 @@
           "datasetSettings": {
             "annotations": [],
             "linkedService": {
-              "name": "Lakehouse",
+              "name": "159ad620_d885_4e3f_be94_ce1890b2765e",
               "properties": {
                 "annotations": [],
                 "type": "Lakehouse",
                 "typeProperties": {
-                  "workspaceId": "3c287734-4f67-40e9-8c8b-bcc3d93ff862",
-                  "artifactId": "550afeaa-8558-4439-beb3-a3ad9c9984d9",
+                  "workspaceId": "@pipeline().DataFactory",
+                  "artifactId": "@pipeline().parameters.LakehouseId",
                   "rootFolder": "Files"
                 }
               }
@@ -248,6 +248,10 @@
       "FactFolderRelPath": {
         "type": "String",
         "defaultValue": "incremental/fact_sale_1y_incremental"
+      },
+      "LakehouseId": {
+        "type": "String",
+        "defaultValue": "550afeaa-8558-4439-beb3-a3ad9c9984d9"
       }
     }
   }

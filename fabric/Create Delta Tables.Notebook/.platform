@@ -3,7 +3,7 @@
   "metadata": {
     "type": "Notebook",
     "displayName": "Create Delta Tables",
-    "description": "New notebook"
+    "description": "Reads parquet source files from lakehouse and converts data to delta tables"
   },
   "config": {
     "version": "2.0",
