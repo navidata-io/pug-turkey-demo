@@ -1,11 +1,12 @@
 name: Deploy via DevOps CLI
+# TODO run-name
 
 on:
   push: # ref, created, deleted <https://docs.github.com/en/webhooks/webhook-events-and-payloads#push>
     branches:
       - main
       - develop
-      - feature/*
+      - feature/**
     tags:
       - '*'
   pull_request:
@@ -47,12 +48,20 @@ jobs:
     if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize' || github.event.action == 'reopened')
     uses: ./.github/workflows/_createOrUpdateEnv.yaml
     with:
-      ENVIRONMENT:       'PR/${{ github.event.pull_request.number }}'
+      ENVIRONMENT: PR
+      WORKSPACE_SUFFIX: '/pr/${{ github.event.pull_request.number }}'
+    secrets: inherit
+
+  destroy-dev-pr:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    uses: ./.github/workflows/_destroyEnv.yaml
+    with:
+      ENVIRONMENT: PR
       WORKSPACE_SUFFIX: '/pr/${{ github.event.pull_request.number }}'
     secrets: inherit
 
   destroy-feature:
-    if: github.event_name == 'delete' && startsWith(github.event.ref, 'feature/')
+    if: github.event_name == 'delete' && startsWith(github.event.ref, 'feature/') # note the different syntax here
     uses: ./.github/workflows/_destroyEnv.yaml
     with:
       ENVIRONMENT: Feature
