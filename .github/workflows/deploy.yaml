@@ -51,6 +51,7 @@ jobs:
       - name: Determine Version
         id: gitversion
         run: dotnet-gitversion /output buildserver
+        working-directory: ~/.dotnet/tools
       - name: Deploy to TEST
         run: |
           devops --version
