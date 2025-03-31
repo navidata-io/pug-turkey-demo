@@ -48,6 +48,11 @@ jobs:
         run: |
           git config --global --add safe.directory '*'
           dotnet tool run dotnet-gitversion -- /output buildserver
+      - name: Sanitize Workspace Name
+        id: generate-workspace-name
+        run: | # strip "/refs/heads" from the suffix -- needed for feature branches
+          SANITIZED_WORKSPACE_SUFFIX=$(echo "${{ inputs.WORKSPACE_SUFFIX }}" | sed 's/\/refs\/heads//g')
+          echo "WORKSPACE_NAME=${{ inputs.WORKSPACE_BASE }}$SANITIZED_WORKSPACE_SUFFIX" >> $GITHUB_ENV
       - name: Deploy
         run: |
           devops deploy ${{ inputs.ENVIRONMENT }} \
@@ -57,7 +62,6 @@ jobs:
         env:
           DEVOPS_CLIENT_ID: ${{ inputs.OIDC_SERVICE_PRINCIPAL }}
           DEVOPS_TENANT_ID: ${{ inputs.OIDC_TENANT_ID }}
-          WORKSPACE_NAME:  '${{ inputs.WORKSPACE_BASE }}${{ inputs.WORKSPACE_SUFFIX }}'
         # TODO Generate outputs
       - name: Job Summary
         run: |

@@ -20,46 +20,39 @@ permissions:
 
 jobs:
   deploy-prod:
-    runs-on: ubuntu-latest
-    environment: prod
-    if: false
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+    if: github.event_name == 'push' && github.ref_type == 'tag' && github.event.base_ref == 'refs/heads/main'
+    uses: ./.github/workflows/_createOrUpdateEnv.yaml
+    with:
+      ENVIRONMENT: Production
+    secrets: inherit
 
   deploy-test:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.deleted == false && github.event.created == false
     uses: ./.github/workflows/_createOrUpdateEnv.yaml
     with:
-      ENVIRONMENT: test
+      ENVIRONMENT: Test
       WORKSPACE_SUFFIX: '/test'
     secrets: inherit
 
   deploy-dev:
-    runs-on: ubuntu-latest
-    environment: dev
-    if: false
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop' && github.event.deleted == false && github.event.created == false
+    uses: ./.github/workflows/_createOrUpdateEnv.yaml
+    with:
+      ENVIRONMENT: Develop
+      WORKSPACE_SUFFIX: '/dev'
+    secrets: inherit
 
   deploy-dev-pr:
-    runs-on: ubuntu-latest
-    environment: pr
-    if: false
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+    if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize' || github.event.action == 'reopened')
+    uses: ./.github/workflows/_createOrUpdateEnv.yaml
+    with:
+      ENVIRONMENT:       'PR/${{ github.event.pull_request.number }}'
+      WORKSPACE_SUFFIX: '/pr/${{ github.event.pull_request.number }}'
+    secrets: inherit
 
-  destroy-feature:
+  destroy-feature: # TODO
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/feature/') && github.event.deleted == true
     runs-on: ubuntu-latest
-    if: false
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -67,11 +60,9 @@ jobs:
           fetch-depth: 0
 
   create-feature:
-    runs-on: ubuntu-latest
-    environment: feature
-    if: false
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/feature/') && github.event.created == true
+    uses: ./.github/workflows/_createOrUpdateEnv.yaml
+    with:
+      ENVIRONMENT: Feature
+      WORKSPACE_SUFFIX: ${{ github.ref }}
+    secrets: inherit
