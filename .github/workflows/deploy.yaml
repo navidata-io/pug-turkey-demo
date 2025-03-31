@@ -59,14 +59,37 @@ jobs:
     runs-on: ubuntu-latest
     environment: dev
     if: false
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
   deploy-dev-pr:
     runs-on: ubuntu-latest
     environment: pr
     if: false
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
   destroy-feature:
     runs-on: ubuntu-latest
     if: false
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
   create-feature:
     runs-on: ubuntu-latest
     environment: feature
     if: false
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
