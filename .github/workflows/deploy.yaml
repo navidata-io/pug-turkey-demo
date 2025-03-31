@@ -62,11 +62,12 @@ jobs:
           devops deploy test \
             ./fabric \
             --workspace ${{env.WORKSPACE_NAME}} \
-            --capacity-id ${{env.CAPACITY_ID}}
+            --capacity ${{env.CAPACITY_ID}}
         env:
           DEVOPS_CLIENT_ID: ${{ env.OIDC_SERVICE_PRINCIPAL }}
           DEVOPS_TENANT_ID: ${{ env.OIDC_TENANT_ID }}
           WORKSPACE_NAME: '${{ env.WORKSPACE_BASE }}/test'
+        # TODO Generate outputs
       - name: Job Summary
         run: |
           echo "# Deployed to TEST: ${{ env.GitVersion_FullSemVer }}" >> $GITHUB_STEP_SUMMARY
