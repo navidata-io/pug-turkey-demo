@@ -1,0 +1,94 @@
+# yaml-language-server: $schema=schema.json
+inherits: workflow-template.yaml
+
+meta:
+  version: 1.0.0
+  description: FabConf 2025 Demo Project
+  authors:
+
+credentials: # how to authenticate
+  # OIDC: tenant, client_id, aud
+  # scopes, additional_scopes
+  # browser, deviceCode
+
+# Syntax:
+# $(ENVIRONMENT_VARIABLE)
+# {{PARAMETER}}
+
+# Default parameters
+# {{ENVIRONMENT}}     : key, ex: 'pr'
+# {{ENVIRONMENT_NAME}}: resolved name, ex: 'pr-23'
+
+parameters:
+  WORKSPACE_BASE_NAME:
+    value: 'fabconf2025'
+  WORKSPACE_NAME:
+    value: '{{WORKSPACE_BASE_NAME}}-{{ENVIRONMENT_NAME}}'
+    description: The name of the workspace
+    environments:
+      prod: '{{WORKSPACE_BASE_NAME}}'
+
+targets: # where to deploy (Azure, Fabric)
+  fabric:workspace:
+    .default: # key. '.default' is the default target for all Fabric items
+      name: '{{WORKSPACE_NAME}}'
+      id:
+      create:
+      environments:
+        prod:
+        test:
+        dev:
+        pr:
+        feature:
+  azure:resource-group:
+    .default:
+      name:
+      subscription:
+      location:
+      environments:
+  azure:subscription:
+
+definitions: # inline item definitions, for instance for Workspace
+  workspace:
+    fabric:workspace:
+      description:
+      capacity:
+      roleAssignments:
+      provisionIdentity:
+      environments:
+  resource-group:
+    azure:resource-group:
+      location:
+
+tokens: # find and replace tokens in files
+
+pipelines: # optional, custom pipelines (running tasks)
+
+tasks: # define custom tasks (Fabric, Azure, Shell)
+
+items: # item-specific config, for instance SemanticModel refresh or deployment order
+       # match by name, type, path
+  Notebook: # label
+    selector: # name, glob
+    fabric:notebook:
+      default_lakehouse:
+      known_lakehouses:
+    parameters:
+      wwiRootFolder:
+      factSaleFolder:
+      environment:
+      version: '{{VERSION}}'
+      pipeline:
+  Lakehouse:
+    fabric:lakehouse:
+      shortcuts:
+  SemanticModel:
+    fabric:semanticModel:
+      refresh:
+      databaseQuery: '#/Lakehouse'
+      annotations:
+    parameters:
+  Report:
+    fabric:report:
+      semanticModel: '#/SemanticModel'
+    parameters:

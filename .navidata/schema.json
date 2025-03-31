@@ -1,0 +1,48 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://schemas.declaro.io/schema.0.1.0-alpha.json",
+    "title": "declaro Manifest",
+    "description": "A declaro manifest file",
+    "type": "object",
+    "properties": {
+        "meta": {
+            "$ref": "#/definitions/meta"
+        },
+        "inherits": {
+            "oneOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "environments": {},
+        "branches": {},
+        "parameters": {},
+        "versioning": {
+            "$ref": "https://gitversion.net/schemas/6.1/GitVersion.configuration.json"
+        }
+    },
+    "required": [],
+    "additionalProperties": true,
+    "definitions": {
+        "meta": {
+            "type": "object",
+            "properties": {
+                "version": {
+                    "description": "The manifest version",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "A description of the project",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
