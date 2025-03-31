@@ -52,11 +52,11 @@ jobs:
     secrets: inherit
 
   destroy-feature:
-    if: github.event_name == 'delete' && startsWith(github.ref, 'refs/heads/feature/')
+    if: github.event_name == 'delete' && startsWith(github.event.ref, 'refs/heads/feature/')
     uses: ./.github/workflows/_destroyEnv.yaml
     with:
       ENVIRONMENT: Feature
-      WORKSPACE_SUFFIX: ${{ github.ref }}
+      WORKSPACE_SUFFIX: ${{ github.event.ref }}
     secrets: inherit
 
   create-feature:
