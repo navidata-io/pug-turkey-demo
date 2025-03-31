@@ -67,4 +67,4 @@ jobs:
         run: |
           echo "# Deployed to ${{ inputs.ENVIRONMENT }}: ${{ env.GitVersion_FullSemVer }} :rocket:" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- Workspace: ${{ steps.deploy.outputs.WORKSPACE_NAME }} -- [${{ steps.deploy.outputs.WORKSPACE_ID }}](https://app.fabric.microsoft.com/groups/${{steps.deploy.outputs.WORKSPACE_ID}})" >> $GITHUB_STEP_SUMMARY
+          echo "- Workspace: [${{ steps.deploy.outputs.WORKSPACE_NAME }}](https://app.fabric.microsoft.com/groups/${{steps.deploy.outputs.WORKSPACE_ID}})" >> $GITHUB_STEP_SUMMARY
