@@ -1,0 +1,72 @@
+name: Deploy via DevOps CLI
+
+on:
+  push: # ref, created, deleted <https://docs.github.com/en/webhooks/webhook-events-and-payloads#push>
+    branches:
+      - main
+      - develop
+      - feature/*
+    tags:
+      - '*'
+  pull_request:
+    branches:
+      - 'develop'
+    types: [opened, synchronize, reopened, closed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  IMAGE_TAG: '0.1.0-beta.1-160'
+  OIDC_SERVICE_PRINCIPAL: 209c8c85-89a3-4e5c-b8eb-bdde5e73d7e2
+  OIDC_TENANT_ID: learn-fabric.org
+
+jobs:
+  deploy-prod:
+    runs-on: ubuntu-latest
+    environment: prod
+    if: false
+
+  deploy-test:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.deleted == false && github.event.created == false
+    runs-on: ubuntu-latest
+    environment: test
+    container:
+      image: ghcr.io/navidata-io/devops-cli:${IMAGE_TAG}
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.TOKEN_READ_PACKAGES }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: dotnet tool restore
+        run: dotnet tool restore
+      - name: GitVersion
+        id: gitversion
+        run: dotnet tool run dotnet-gitversion -- /output buildserver
+      - name: Deploy to TEST
+        run: |
+          devops --version
+      - name: Job Summary
+        run: |
+          echo "# Deployed to TEST: ${{ env.GitVersion_FullSemVer }}" >> $GITHUB_STEP_SUMMARY
+
+  deploy-dev:
+    runs-on: ubuntu-latest
+    environment: dev
+    if: false
+  deploy-dev-pr:
+    runs-on: ubuntu-latest
+    environment: pr
+    if: false
+  destroy-feature:
+    runs-on: ubuntu-latest
+    if: false
+  create-feature:
+    runs-on: ubuntu-latest
+    environment: feature
+    if: false
