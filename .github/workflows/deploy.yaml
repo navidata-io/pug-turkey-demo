@@ -36,7 +36,7 @@ jobs:
     secrets: inherit
 
   deploy-dev:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/develop' && github.event.deleted == false && github.event.created == false
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop' && github.event.deleted == false
     uses: ./.github/workflows/_createOrUpdateEnv.yaml
     with:
       ENVIRONMENT: Develop
