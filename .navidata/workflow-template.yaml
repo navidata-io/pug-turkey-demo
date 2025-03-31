@@ -1,42 +1,35 @@
 # yaml-language-server: $schema=schema.json
 
-workflow: # this is metadata for the workflow, could also reside in a separate file (e.g. workflow.json)
-  label:
-  description:
-
 branches:
   main:
     protected: true
   develop:
     protected: true
   feature:
+    name: feature/{BranchName}
 
 environments:
   prod:
     label: Production
     triggers:
       - tag:
-
   test:
     label: UAT
     triggers:
       - push:
           branches: [ main ]
-
   dev:
     label: Development
     description: Shared development environment
     triggers:
       - push:
           branches: [ develop ]
-
   pr:
     description: Pull request from feature branch into dev
     triggers:
       - pull-request:
           branches: [ feature ]
           target: develop
-
   feature:
     description: Isolated feature branch environment
     is-shared: false

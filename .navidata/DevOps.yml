@@ -4,7 +4,7 @@ inherits: workflow-template.yaml
 meta:
   version: 1.0.0
   description: FabConf 2025 Demo Project
-  authors:
+  authors: mthierba
 
 credentials: # how to authenticate
   # OIDC: tenant, client_id, aud
