@@ -56,7 +56,7 @@ jobs:
     uses: ./.github/workflows/_destroyEnv.yaml
     with:
       ENVIRONMENT: Feature
-      WORKSPACE_SUFFIX: ${{ github.event.ref }}
+      WORKSPACE_SUFFIX: '/${{ github.event.ref }}'
     secrets: inherit
 
   create-feature:
