@@ -60,7 +60,7 @@ spark.conf.set("spark.databricks.delta.schema.autoMerge.enabled", "true")
 
 # MARKDOWN ********************
 
-# ### Fact - Sale
+# ### Fact - Sales
 # 
 # This cell reads raw data from the _Files_ section of the lakehouse, adds additional columns for different date parts and the same information is being used to create partitioned fact delta table.
 
