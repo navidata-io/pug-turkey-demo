@@ -28,6 +28,11 @@ jobs:
     runs-on: ubuntu-latest
     environment: prod
     if: false
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
   deploy-test:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.deleted == false && github.event.created == false
