@@ -12,6 +12,7 @@ on:
     branches:
       - 'develop'
     types: [opened, synchronize, reopened, closed]
+  delete:
   workflow_dispatch:
 
 permissions:
@@ -51,7 +52,7 @@ jobs:
     secrets: inherit
 
   destroy-feature:
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/feature/') && github.event.deleted == true
+    if: github.event_name == 'delete' && startsWith(github.ref, 'refs/heads/feature/')
     uses: ./.github/workflows/_destroyEnv.yaml
     with:
       ENVIRONMENT: Feature
