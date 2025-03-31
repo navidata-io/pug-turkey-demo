@@ -8,7 +8,7 @@ on:
         description: 'The environment to deploy to.'
       WORKSPACE_BASE:
         type: string
-        default: 'fabconf-demo-prototype'
+        default: 'fabconf-demo'
         description: 'The name of the workspace.'
       WORKSPACE_SUFFIX:
         type: string
