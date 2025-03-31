@@ -57,7 +57,7 @@ jobs:
         env:
           DEVOPS_CLIENT_ID: ${{ inputs.OIDC_SERVICE_PRINCIPAL }}
           DEVOPS_TENANT_ID: ${{ inputs.OIDC_TENANT_ID }}
-          WORKSPACE_NAME:   ${{ inputs.WORKSPACE_BASE }}${{ inputs.WORKSPACE_SUFFIX }}'
+          WORKSPACE_NAME:  '${{ inputs.WORKSPACE_BASE }}${{ inputs.WORKSPACE_SUFFIX }}'
         # TODO Generate outputs
       - name: Job Summary
         run: |
