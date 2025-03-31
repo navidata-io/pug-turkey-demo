@@ -50,14 +50,13 @@ jobs:
       WORKSPACE_SUFFIX: '/pr/${{ github.event.pull_request.number }}'
     secrets: inherit
 
-  destroy-feature: # TODO
+  destroy-feature:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/feature/') && github.event.deleted == true
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+    uses: ./.github/workflows/_destroyEnv.yaml
+    with:
+      ENVIRONMENT: Feature
+      WORKSPACE_SUFFIX: ${{ github.ref }}
+    secrets: inherit
 
   create-feature:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/feature/') && github.event.created == true
