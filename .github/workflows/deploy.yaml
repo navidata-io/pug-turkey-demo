@@ -19,7 +19,7 @@ permissions:
   id-token: write
 
 env:
-  IMAGE_TAG: '0.1.0-beta.1-160'
+  IMAGE_TAG: '0.1.0-beta.1-160' # this won't work: <https://github.com/actions/runner/issues/2394>
   OIDC_SERVICE_PRINCIPAL: 209c8c85-89a3-4e5c-b8eb-bdde5e73d7e2
   OIDC_TENANT_ID: learn-fabric.org
 
@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: test
     container:
-      image: ghcr.io/navidata-io/devops-cli:${IMAGE_TAG}
+      image: ghcr.io/navidata-io/devops-cli:0.1.0-beta.1-160
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.TOKEN_READ_PACKAGES }}
