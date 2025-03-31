@@ -48,10 +48,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Install GitVersion
+        run: dotnet tool restore
       - name: Determine Version
         id: gitversion
-        run: dotnet-gitversion /output buildserver
-        working-directory: /root/.dotnet/tools
+        run: dotnet tool run dotnet-gitversion -- /output buildserver
       - name: Deploy to TEST
         run: |
           devops --version
