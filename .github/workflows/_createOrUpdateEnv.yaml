@@ -51,7 +51,7 @@ jobs:
       - name: Sanitize Workspace Name
         id: generate-workspace-name
         run: | # strip "/refs/heads" from the suffix -- needed for feature branches
-          SANITIZED_WORKSPACE_SUFFIX=$(echo "${{ inputs.WORKSPACE_SUFFIX }}" | sed 's/\/refs\/heads//g')
+          SANITIZED_WORKSPACE_SUFFIX=$(echo "${{ inputs.WORKSPACE_SUFFIX }}" | sed 's/refs\/heads//g')
           echo "WORKSPACE_NAME=${{ inputs.WORKSPACE_BASE }}$SANITIZED_WORKSPACE_SUFFIX" >> $GITHUB_ENV
       - name: Deploy
         run: |
