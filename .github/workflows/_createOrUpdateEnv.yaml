@@ -1,0 +1,64 @@
+on:
+  workflow_call:
+# <https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#workflow_call>
+    inputs:
+      ENVIRONMENT:
+        required: true
+        type: string
+        description: 'The environment to deploy to.'
+      WORKSPACE_BASE:
+        type: string
+        default: 'fabconf-demo-prototype'
+        description: 'The name of the workspace.'
+      WORKSPACE_SUFFIX:
+        type: string
+        default: ''
+        description: 'The suffix to append to the workspace name.'
+      OIDC_SERVICE_PRINCIPAL:
+        type: string
+        default: '209c8c85-89a3-4e5c-b8eb-bdde5e73d7e2'
+        description: 'The OIDC service principal ID.'
+      OIDC_TENANT_ID:
+        type: string
+        default: 'learn-fabric.org'
+        description: 'The OIDC tenant ID.'
+      CAPACITY_ID:
+        type: string
+        default: 'b6ea7f32-4091-43c4-b346-3794ca0ae685'
+        description: 'The capacity ID.'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.ENVIRONMENT }}
+    container:
+      image: ghcr.io/navidata-io/devops-cli:0.1.0-beta.1-161
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.TOKEN_READ_PACKAGES }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install GitVersion
+        run: dotnet tool restore
+      - name: Determine Version
+        id: gitversion
+        run: |
+          git config --global --add safe.directory '*'
+          dotnet tool run dotnet-gitversion -- /output buildserver
+      - name: Deploy
+        run: |
+          devops deploy ${{ inputs.ENVIRONMENT }} \
+            ./fabric \
+            --workspace ${{ env.WORKSPACE_NAME }} \
+            --capacity ${{ inputs.CAPACITY_ID }}
+        env:
+          DEVOPS_CLIENT_ID: ${{ inputs.OIDC_SERVICE_PRINCIPAL }}
+          DEVOPS_TENANT_ID: ${{ inputs.OIDC_TENANT_ID }}
+          WORKSPACE_NAME:   ${{ inputs.WORKSPACE_BASE }}${{ inputs.WORKSPACE_SUFFIX }}'
+        # TODO Generate outputs
+      - name: Job Summary
+        run: |
+          echo "# Deployed to TEST: ${{ env.GitVersion_FullSemVer }}" >> $GITHUB_STEP_SUMMARY
