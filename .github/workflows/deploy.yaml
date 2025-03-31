@@ -29,7 +29,7 @@ jobs:
     secrets: inherit
 
   deploy-test:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.deleted == false && github.event.created == false
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.deleted == false
     uses: ./.github/workflows/_createOrUpdateEnv.yaml
     with:
       ENVIRONMENT: Test
