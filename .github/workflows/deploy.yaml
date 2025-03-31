@@ -52,7 +52,9 @@ jobs:
         run: dotnet tool restore
       - name: Determine Version
         id: gitversion
-        run: dotnet tool run dotnet-gitversion -- /output buildserver
+        run: |
+          git config --global --add safe.directory '*'
+          dotnet tool run dotnet-gitversion -- /output buildserver
       - name: Deploy to TEST
         run: |
           devops --version
