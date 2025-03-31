@@ -65,6 +65,7 @@ jobs:
           DEVOPS_TENANT_ID: ${{ inputs.OIDC_TENANT_ID }}
       - name: Job Summary
         run: |
-          echo "# Deployed to ${{ inputs.ENVIRONMENT }}: ${{ env.GitVersion_FullSemVer }} :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "## Deployed to ${{ inputs.ENVIRONMENT }} Environment :rocket:" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- Version: ${{ env.GitVersion_FullSemVer }}" >> $GITHUB_STEP_SUMMARY
           echo "- Workspace: [${{ steps.deploy.outputs.WORKSPACE_NAME }}](https://app.fabric.microsoft.com/groups/${{steps.deploy.outputs.WORKSPACE_ID}})" >> $GITHUB_STEP_SUMMARY
