@@ -9,6 +9,9 @@ table Sales
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	measure 'Total Profit' = SUM([Profit])
+		lineageTag: 48caf60b-974e-4443-ae2b-41981eddd7e6
+
 	column SaleKey
 		dataType: int64
 		isHidden
