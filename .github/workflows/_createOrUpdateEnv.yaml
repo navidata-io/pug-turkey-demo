@@ -30,9 +30,11 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.ENVIRONMENT }}
+    environment:
+      name: ${{ inputs.ENVIRONMENT }}
+      url: ${{ steps.deploy.outputs.WORKSPACE_URL }}
     container:
-      image: ghcr.io/navidata-io/devops-cli:0.1.0-beta.1-163
+      image: ghcr.io/navidata-io/devops-cli:0.1.0-beta.1-222
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.TOKEN_READ_PACKAGES }}
