@@ -34,7 +34,7 @@ jobs:
       name: ${{ inputs.ENVIRONMENT }}
       url: ${{ steps.deploy.outputs.WORKSPACE_URL }}
     container:
-      image: ghcr.io/navidata-io/devops-cli:0.1.0-beta.1-221
+      image: ghcr.io/navidata-io/devops-cli:0.1.0-beta.1-222
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.TOKEN_READ_PACKAGES }}
