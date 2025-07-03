@@ -55,7 +55,6 @@ table Employee
 		mode: directLake
 		source
 			entityName: Employee
-			schemaName: dbo
 			expressionSource: DatabaseQuery
 
 	annotation PBI_ResultType = Table

@@ -1,6 +1,6 @@
 expression DatabaseQuery =
 		let
-		    database = Sql.Database("OSGJXHLSPZRUHKHRNEODSVMRL4-GR3SQPDHJ7UUBDELXTB5SP7YMI.datawarehouse.fabric.microsoft.com", "63c5327a-3dca-43ab-a2fa-104f7a607f34")
+		    database = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/72497ae0-a576-499d-a3b4-cf3d339dc22d/8311ac25-1ed0-4a99-84fe-1e4b2a76e110", [HierarchicalNavigation=true])
 		in
 		    database
 	lineageTag: 1c1dece6-e3fe-47ef-9715-7b626fe1f154

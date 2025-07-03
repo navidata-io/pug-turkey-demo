@@ -75,7 +75,6 @@ table 'Stock Item'
 		mode: directLake
 		source
 			entityName: Stock_Item
-			schemaName: dbo
 			expressionSource: DatabaseQuery
 
 	changedProperty = Name

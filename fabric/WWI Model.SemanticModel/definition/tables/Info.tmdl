@@ -47,7 +47,6 @@ table Info
 		mode: directLake
 		source
 			entityName: Info
-			schemaName: dbo
 			expressionSource: DatabaseQuery
 
 	annotation PBI_ResultType = Table

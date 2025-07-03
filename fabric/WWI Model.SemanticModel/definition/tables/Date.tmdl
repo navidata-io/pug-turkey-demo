@@ -127,7 +127,6 @@ table Date
 		mode: directLake
 		source
 			entityName: Date
-			schemaName: dbo
 			expressionSource: DatabaseQuery
 
 	annotation PBI_ResultType = Table
