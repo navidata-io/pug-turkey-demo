@@ -8,7 +8,7 @@ on:
         description: 'The environment to deploy to.'
       WORKSPACE_BASE:
         type: string
-        default: 'fabconf-demo'
+        default: 'demo-pug-turkey'
         description: 'The name of the workspace.'
       WORKSPACE_SUFFIX:
         type: string
@@ -16,11 +16,11 @@ on:
         description: 'The suffix to append to the workspace name.'
       OIDC_SERVICE_PRINCIPAL:
         type: string
-        default: '209c8c85-89a3-4e5c-b8eb-bdde5e73d7e2'
+        default: '97d58016-9953-4817-8803-632ffebf7771'
         description: 'The OIDC service principal ID.'
       OIDC_TENANT_ID:
         type: string
-        default: 'learn-fabric.org'
+        default: 'pbitools.org'
         description: 'The OIDC tenant ID.'
 
 jobs:
