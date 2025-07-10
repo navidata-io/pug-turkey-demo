@@ -3,6 +3,7 @@ table Sales
 	sourceLineageTag: [dbo].[Sales]
 
 	measure 'Net Sales Amount' = SUMX(Sales, Sales[Quantity] * Sales[Unit Price])
+		displayFolder: Measures
 		lineageTag: 9272b9fb-1e5a-4a4f-8f7a-dc722da19b03
 
 		changedProperty = Name
@@ -10,6 +11,7 @@ table Sales
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Total Profit' = SUM([Profit])
+		displayFolder: Measures
 		lineageTag: 48caf60b-974e-4443-ae2b-41981eddd7e6
 
 	column SaleKey
