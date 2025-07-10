@@ -1,5 +1,39 @@
-# FabConf Vegas '25 Demo Project
+# Fabric Feature Workflow Sample Project
 
-## Errors
+## Environments
 
-> Data source errorThe source artifact '8311ac25-1ed0-4a99-84fe-1e4b2a76e110' does not support schema, but 'schemaName' is defined in the partition of table '<oii>Info</oii>'. Please remove 'schemaName' from the partition of the table. Table: Info.
+| Key | Label | Source | Deployment trigger | Lifetime | Shared | Purpose |
+| --- | --- | --- | --- | --- | --- | --- |
+| prod | Production | Tag | tag on `main` | Permanent | Y | Consumption by end users |
+| test | UAT | Branch | push to `main` | Permanent | Y | Pre-production (business approvers) |
+| dev | Development | Branch | push to `develop` | Permanent | Y | Integration (dev team) |
+| pr | Pull Request/{#Number} | PR | feat => develop | Ephemeral (PR) | (Y) | Review (dev lead) |
+| feat | Feature/{BranchName} | Branch | create\|delete: `feature/*` | Ephemeral (Branch) | N | Feature owner (developer) |
+
+## Diagram
+
+![Workflow Diagram](./assets/diagram.png)
+
+## Flow of Changes
+
+1. Feature/*
+2. develop
+3. main
+
+## Developer Workflow
+
+- Create new feature branch (`feature/{name}`) from `main` of `dev`
+  - CI/CD provisions new feature environment in Fabric
+- Work in feature environment (browser or client tools)
+  - Commit changes back into branch
+  - Merge (any) upstream changes from `develop`
+- Open pull request (target `develop`)
+  - Auto-provisions PR environment
+  - Review changes and push further commits
+  - Closing the PR destroys the PR environment
+- Merge PR
+  - Review/stage changes in DEV/Integration environment
+- Merge into `main`
+  - Review with business stakeholders in UAT
+- Tag `main` (create release)
+  - Deploys to production
