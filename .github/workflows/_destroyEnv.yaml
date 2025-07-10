@@ -35,7 +35,7 @@ jobs:
       image: ${{ inputs.CONTAINER_IMAGE }}
       credentials:
         username: ${{ github.actor }}
-        password: ${{ secrets.TOKEN_READ_PACKAGES }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
