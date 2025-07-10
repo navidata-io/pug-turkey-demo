@@ -55,6 +55,7 @@ jobs:
           echo "WORKSPACE_NAME=${{ inputs.WORKSPACE_BASE }}$SANITIZED_WORKSPACE_SUFFIX" >> $GITHUB_ENV
 
       - name: Determine Version
+        if: false
         id: version
         run: |
           devops gitversion execute
@@ -71,6 +72,7 @@ jobs:
         env:
           DEVOPS_CLIENT_ID: ${{ inputs.OIDC_SERVICE_PRINCIPAL }}
           DEVOPS_TENANT_ID: ${{ inputs.OIDC_TENANT_ID }}
+          DEVOPS_CRASHDUMP_FOLDER: ./logs
 
       - name: Upload error logs
         if: failure()
