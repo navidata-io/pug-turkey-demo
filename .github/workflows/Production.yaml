@@ -1,0 +1,18 @@
+name: Deploy to Production
+
+on:
+  push:
+    tags:
+      - '*'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  Deploy:
+    if: github.event_name == 'push' && github.ref_type == 'tag' && github.event.base_ref == 'refs/heads/main'
+    uses: ./.github/workflows/_createOrUpdateEnv.yaml
+    with:
+      ENVIRONMENT: Production
+    secrets: inherit

@@ -1,0 +1,28 @@
+name: Pull Request Environment
+
+on:
+  pull_request:
+    branches:
+      - 'develop'
+    types: [opened, synchronize, reopened, closed]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  Deploy:
+    if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize' || github.event.action == 'reopened')
+    uses: ./.github/workflows/_createOrUpdateEnv.yaml
+    with:
+      ENVIRONMENT: PR
+      WORKSPACE_SUFFIX: '/pr/${{ github.event.pull_request.number }}'
+    secrets: inherit
+
+  Destroy:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    uses: ./.github/workflows/_destroyEnv.yaml
+    with:
+      ENVIRONMENT: PR
+      WORKSPACE_SUFFIX: '/pr/${{ github.event.pull_request.number }}'
+    secrets: inherit

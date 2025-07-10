@@ -1,0 +1,19 @@
+name: Deploy to UAT
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  Deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.deleted == false
+    uses: ./.github/workflows/_createOrUpdateEnv.yaml
+    with:
+      ENVIRONMENT: Test
+      WORKSPACE_SUFFIX: '/test'
+    secrets: inherit

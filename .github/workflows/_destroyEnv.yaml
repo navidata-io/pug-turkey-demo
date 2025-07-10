@@ -1,6 +1,5 @@
 on:
   workflow_call:
-# <https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#workflow_call>
     inputs:
       ENVIRONMENT:
         required: true
@@ -22,13 +21,18 @@ on:
         type: string
         default: 'pbitools.org'
         description: 'The OIDC tenant ID.'
+      CONTAINER_IMAGE:
+        type: string
+        default: 'ghcr.io/navidata-io/devops-cli:0.2.0-RC.544'
+        description: 'The container image to use for the job.'
 
 jobs:
-  deploy:
+  destroy-environment:
     runs-on: ubuntu-latest
+    name: Destroy the ${{ inputs.ENVIRONMENT }} Environment
     environment: ${{ inputs.ENVIRONMENT }}
     container:
-      image: ghcr.io/navidata-io/devops-cli:0.1.0-beta.1-163
+      image: ${{ inputs.CONTAINER_IMAGE }}
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.TOKEN_READ_PACKAGES }}

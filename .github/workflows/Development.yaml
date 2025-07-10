@@ -1,0 +1,19 @@
+name: Deploy to Development
+
+on:
+  push: # ref, created, deleted <https://docs.github.com/en/webhooks/webhook-events-and-payloads#push>
+    branches:
+      - develop
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  Deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop' && github.event.deleted == false
+    uses: ./.github/workflows/_createOrUpdateEnv.yaml
+    with:
+      ENVIRONMENT: Develop
+      WORKSPACE_SUFFIX: '/dev'
+    secrets: inherit
