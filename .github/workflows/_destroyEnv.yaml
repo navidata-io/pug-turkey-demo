@@ -29,7 +29,7 @@ on:
 jobs:
   destroy-environment:
     runs-on: ubuntu-latest
-    name: Destroy the ${{ inputs.ENVIRONMENT }} Environment
+    name: ${{ inputs.ENVIRONMENT }}
     environment: ${{ inputs.ENVIRONMENT }}
     container:
       image: ${{ inputs.CONTAINER_IMAGE }}

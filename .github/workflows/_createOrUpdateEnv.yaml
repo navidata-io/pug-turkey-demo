@@ -33,7 +33,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    name: Deploy to ${{ inputs.ENVIRONMENT }} Environment
+    name: ${{ inputs.ENVIRONMENT }}
     environment:
       name: ${{ inputs.ENVIRONMENT }}
       url: ${{ steps.deploy.outputs.WORKSPACE_URL }}
