@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$meta": "Template metadata",
-  "title": "Workflow Template",
-  "description": "A template for a workflow",
+  "title": "Fabric Feature Workflow",
+  "description": "",
   "version": "1.0.0"
 }

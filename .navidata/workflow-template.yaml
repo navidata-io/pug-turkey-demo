@@ -2,7 +2,7 @@
 
 branches:
   main:
-    protected: true
+    is-default: true
   develop:
     protected: true
   feature:
@@ -11,30 +11,29 @@ branches:
 environments:
   prod:
     label: Production
-    triggers:
-      - tag:
+    source:
+      tag: '*'
   test:
     label: UAT
-    triggers:
-      - push:
-          branches: [ main ]
+    source:
+      branch: main
   dev:
     label: Development
     description: Shared development environment
-    triggers:
-      - push:
-          branches: [ develop ]
+    source:
+      branch: develop
   pr:
+    label: Pull Request
     description: Pull request from feature branch into dev
-    triggers:
-      - pull-request:
-          branches: [ feature ]
-          target: develop
+    source:
+      pull-request:
+        branches: [ feature ]
+        target: develop
   feature:
     description: Isolated feature branch environment
-    is-shared: false
     lifetime: branch
-    triggers: # no triggers means no CI pipelines
+    source:
+      branch: feature
 
 versioning:
   assembly-versioning-scheme: MajorMinorPatch
@@ -88,23 +87,6 @@ versioning:
       is-release-branch: false
       is-main-branch: true
       pre-release-weight: 55000
-    release:
-      mode: ManualDeployment
-      label: beta
-      increment: Minor
-      prevent-increment:
-        of-merged-branch: true
-        when-current-commit-tagged: false
-      track-merge-target: false
-      regex: ^releases?[/-](?<BranchName>.+)
-      source-branches:
-      - main
-      - support
-      is-source-branch-for: []
-      tracks-release-branches: false
-      is-release-branch: true
-      is-main-branch: false
-      pre-release-weight: 30000
     feature:
       mode: ManualDeployment
       label: '{BranchName}'
@@ -141,53 +123,6 @@ versioning:
       - hotfix
       is-source-branch-for: []
       pre-release-weight: 30000
-    hotfix:
-      mode: ManualDeployment
-      label: beta
-      increment: Inherit
-      prevent-increment:
-        when-current-commit-tagged: false
-      regex: ^hotfix(es)?[/-](?<BranchName>.+)
-      source-branches:
-      - main
-      - support
-      is-source-branch-for: []
-      is-release-branch: true
-      is-main-branch: false
-      pre-release-weight: 30000
-    support:
-      label: ''
-      increment: Patch
-      prevent-increment:
-        of-merged-branch: true
-      track-merge-target: false
-      regex: ^support[/-](?<BranchName>.+)
-      source-branches:
-      - main
-      is-source-branch-for: []
-      tracks-release-branches: false
-      is-release-branch: false
-      is-main-branch: true
-      pre-release-weight: 55000
-    unknown:
-      mode: ManualDeployment
-      label: '{BranchName}'
-      increment: Inherit
-      prevent-increment:
-        when-current-commit-tagged: true
-      regex: (?<BranchName>.+)
-      source-branches:
-      - main
-      - develop
-      - release
-      - feature
-      - pull-request
-      - hotfix
-      - support
-      is-source-branch-for: []
-      is-main-branch: false
-  ignore:
-    sha: []
   mode: ContinuousDelivery
   label: '{BranchName}'
   increment: Inherit

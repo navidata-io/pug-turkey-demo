@@ -65,10 +65,10 @@ jobs:
       - name: Deploy
         id: deploy
         run: |
-          devops deploy ${{ inputs.ENVIRONMENT }} \
+          devops deploy "${{ inputs.ENVIRONMENT }}" \
             ./fabric \
-            --workspace ${{ env.WORKSPACE_NAME }} \
-            --capacity ${{ inputs.CAPACITY_ID }}
+            --workspace "${{ env.WORKSPACE_NAME }}" \
+            --capacity "${{ inputs.CAPACITY_ID }}"
         env:
           DEVOPS_CLIENT_ID: ${{ inputs.OIDC_SERVICE_PRINCIPAL }}
           DEVOPS_TENANT_ID: ${{ inputs.OIDC_TENANT_ID }}
