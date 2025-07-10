@@ -55,6 +55,7 @@ jobs:
       - name: Determine Version
         id: version
         run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
           devops gitversion execute
       - name: Deploy
         id: deploy
