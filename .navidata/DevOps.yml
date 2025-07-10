@@ -3,92 +3,84 @@ inherits: workflow-template.yaml
 
 meta:
   version: 1.0.0
-  description: FabConf 2025 Demo Project
+  description: PUG Turkey Demo Project
   authors: mthierba
 
 credentials: # how to authenticate
-  # OIDC: tenant, client_id, aud
-  # scopes, additional_scopes
-  # browser, deviceCode
+  fabric:
+    OIDC:
+      tenantId: 'pbitools.org'
+      servicePrincipalId: 97d58016-9953-4817-8803-632ffebf7771
 
-# Syntax:
-# $(ENVIRONMENT_VARIABLE)
-# {{PARAMETER}}
-
-# Default parameters
-# {{ENVIRONMENT}}     : key, ex: 'pr'
-# {{ENVIRONMENT_NAME}}: resolved name, ex: 'pr-23'
-
-parameters:
+variables:
   WORKSPACE_BASE_NAME:
-    value: 'fabconf2025'
-  WORKSPACE_NAME:
-    value: '{{WORKSPACE_BASE_NAME}}-{{ENVIRONMENT_NAME}}'
-    description: The name of the workspace
+    value: 'demo-pug-turkey'
+  WORKSPACE_SUFFIX:
+    value: ''
+    description: The suffix to append to the workspace name, e.g. '/test' or '/dev'
     environments:
-      prod: '{{WORKSPACE_BASE_NAME}}'
+      test: '/test'
+      dev: '/dev'
+      pr: '/pr/{{CI.PULL_REQUEST_NUMBER}}'
+      feature: '{{GIT.BRANCH_NAME}}'
+  WORKSPACE_NAME:
+    value: '{{WORKSPACE_BASE_NAME}}{{WORKSPACE_SUFFIX}}'
+    description: The name of the target workspace for each environment
 
 targets: # where to deploy (Azure, Fabric)
   fabric:workspace:
     .default: # key. '.default' is the default target for all Fabric items
       name: '{{WORKSPACE_NAME}}'
-      id:
-      create:
-      environments:
-        prod:
-        test:
-        dev:
-        pr:
-        feature:
-  azure:resource-group:
-    .default:
-      name:
-      subscription:
-      location:
-      environments:
-  azure:subscription:
-
-definitions: # inline item definitions, for instance for Workspace
-  workspace:
-    fabric:workspace:
-      description:
-      capacity:
+      capacity: '2812A96A-EE6A-4E8D-B5F6-890A53DC727E'
+      description: 'Created via DevOps CLI'
+      allowCreate: true
       roleAssignments:
-      provisionIdentity:
-      environments:
-  resource-group:
-    azure:resource-group:
-      location:
+      - role: Member
+        principalType: Group
+        principalId: 383abc38-aafd-4361-b6f2-667a864b22da
+      provisionIdentity: false
 
-tokens: # find and replace tokens in files
+definitions:
+  fabric:
+    .default:
+      rootFolder: /fabric
 
-pipelines: # optional, custom pipelines (running tasks)
-
-tasks: # define custom tasks (Fabric, Azure, Shell)
-
-items: # item-specific config, for instance SemanticModel refresh or deployment order
-       # match by name, type, path
-  Notebook: # label
-    selector: # name, glob
-    fabric:notebook:
-      default_lakehouse:
-      known_lakehouses:
-    parameters:
-      wwiRootFolder:
-      factSaleFolder:
-      environment:
-      version: '{{VERSION}}'
-      pipeline:
+items:
   Lakehouse:
     fabric:lakehouse:
-      shortcuts:
+      ignore-default-semantic-model: true
+  Pipeline:
+    fabric:dataPipeline:
+    parameters:
+      LakehouseId: '#/Lakehouse/id'
+      LogsFolderPath: '/logs/{{CONNECTION.TenantId}}/{{WORKSPACE_NAME}}/DataPipeline'
+      FactFolderRelPath:
+        value: 'incremental/fact_sale_1y_incremental'
+        environments:
+          prod: 'full/fact_sale'
+          test: 'full/fact_sale'
+  Notebook: # label
+    fabric:notebook:
+      defaultLakehouse: '#/Lakehouse/id'
+      job:
+        dependsOn: '#/Pipeline/job'
+    parameters:
+      wwiRootFolder: 'Files/WideWorldImportersDW'
+      factSaleFolder:
+        value: 'facts/fact_sale_1y_incremental'
+        environments:
+          prod: 'facts/fact_sale'
+          test: 'facts/fact_sale'
+      environment: '{{ENVIRONMENT}}'
+      version: '{{VERSION}}'
+      pipeline: '{{PIPELINE.Name}}'
   SemanticModel:
     fabric:semanticModel:
-      refresh:
       databaseQuery: '#/Lakehouse'
-      annotations:
-    parameters:
+      refresh:
+        when: WorkspaceCreated
+        depends-on: '#/Notebook/job'
+        type: Automatic
   Report:
     fabric:report:
       semanticModel: '#/SemanticModel'
-    parameters:

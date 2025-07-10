@@ -47,7 +47,7 @@ jobs:
           SANITIZED_WORKSPACE_SUFFIX=$(echo "${{ inputs.WORKSPACE_SUFFIX }}" | sed 's/refs\/heads//g')
           echo "WORKSPACE_NAME=${{ inputs.WORKSPACE_BASE }}$SANITIZED_WORKSPACE_SUFFIX" >> $GITHUB_ENV
       - name: Destroy
-        run: devops fabric delete-workspace ${{ env.WORKSPACE_NAME }}
+        run: devops fabric delete-workspace "${{ env.WORKSPACE_NAME }}"
         env:
           DEVOPS_CLIENT_ID: ${{ inputs.OIDC_SERVICE_PRINCIPAL }}
           DEVOPS_TENANT_ID: ${{ inputs.OIDC_TENANT_ID }}

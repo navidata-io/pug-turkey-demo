@@ -12,18 +12,18 @@ permissions:
   id-token: write
 
 jobs:
-  Destroy:
-    if: github.event_name == 'delete' && startsWith(github.event.ref, 'feature/') # note the different syntax here
-    uses: ./.github/workflows/_destroyEnv.yaml
-    with:
-      ENVIRONMENT: Feature
-      WORKSPACE_SUFFIX: '/${{ github.event.ref }}'
-    secrets: inherit
-
   Create:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/feature/') && github.event.created == true
     uses: ./.github/workflows/_createOrUpdateEnv.yaml
     with:
-      ENVIRONMENT: Feature
+      ENVIRONMENT: 'Feature (${{ github.actor }})'
       WORKSPACE_SUFFIX: ${{ github.ref }}
+    secrets: inherit
+
+  Destroy:
+    if: github.event_name == 'delete' && startsWith(github.event.ref, 'feature/') # note the different syntax here
+    uses: ./.github/workflows/_destroyEnv.yaml
+    with:
+      ENVIRONMENT: 'Feature (${{ github.actor }})'
+      WORKSPACE_SUFFIX: '/${{ github.event.ref }}'
     secrets: inherit
