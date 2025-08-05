@@ -1,5 +1,7 @@
 # Fabric Feature Workflow Sample Project
 
+[Watch a recorded end-to-end demo of this setup here.](https://youtu.be/sOal9k3i3No?si=730nVPOZRJz532yJ)
+
 ## Environments
 
 | Key | Label | Source | Deployment trigger | Lifetime | Shared | Purpose |
