@@ -27,7 +27,7 @@ on:
         description: 'The capacity ID.'
       CONTAINER_IMAGE:
         type: string
-        default: 'ghcr.io/navidata-io/devops-cli:0.2.0-RC.544'
+        default: 'ghcr.io/navidata-io/devops-cli:0.2.0-RC.693'
         description: 'The container image to use for the job.'
 
 jobs:

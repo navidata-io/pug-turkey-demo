@@ -1,5 +1,7 @@
 # Fabric Feature Workflow Sample Project
 
+[Watch a recorded end-to-end demo of this setup here.](https://youtu.be/sOal9k3i3No?si=730nVPOZRJz532yJ)
+
 ## Environments
 
 | Key | Label | Source | Deployment trigger | Lifetime | Shared | Purpose |
@@ -22,7 +24,7 @@
 
 ## Developer Workflow
 
-- Create new feature branch (`feature/{name}`) from `main` of `dev`
+- Create new feature branch (`feature/{name}`) from `main` or `dev`
   - CI/CD provisions new feature environment in Fabric
 - Work in feature environment (browser or client tools)
   - Commit changes back into branch
