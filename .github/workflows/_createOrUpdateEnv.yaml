@@ -27,7 +27,7 @@ on:
         description: 'The capacity ID.'
       CONTAINER_IMAGE:
         type: string
-        default: vars.DOCKER_IMAGE
+        default: ${{ vars.DOCKER_IMAGE }}
         description: 'The container image to use for the job.'
 
 jobs:
